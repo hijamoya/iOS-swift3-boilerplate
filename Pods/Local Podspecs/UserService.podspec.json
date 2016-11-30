@@ -1,0 +1,52 @@
+{
+  "name": "UserService",
+  "version": "0.0.5",
+  "license": "MIT",
+  "authors": "HC340000",
+  "homepage": "https://inhouse.htcstudio.com/bitbucket/projects/CAREU/repos/deepq/",
+  "summary": "UserService manipulates user-related operations.",
+  "source": {
+    "git": "https://inhouse.htcstudio.com/bitbucket/scm/careu/deepq.git"
+  },
+  "platforms": {
+    "ios": "7.1",
+    "osx": "10.9"
+  },
+  "dependencies": {
+    "!ProtoCompiler-gRPCPlugin": [
+
+    ]
+  },
+  "prepare_command": "mkdir -p src\n../Pods/!ProtoCompiler/protoc         --plugin=protoc-gen-grpc=../Pods/!ProtoCompiler-gRPCPlugin/grpc_objective_c_plugin         --objc_out=src         --grpc_out=src         -I ../../../backend/src/user         -I ../Pods/!ProtoCompiler         ../../../backend/src/user/*.proto",
+  "pod_target_xcconfig": {
+    "GCC_PREPROCESSOR_DEFINITIONS": "$(inherited) GPB_USE_PROTOBUF_FRAMEWORK_IMPORTS=1",
+    "CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES": "YES"
+  },
+  "subspecs": [
+    {
+      "name": "Messages",
+      "source_files": "src/*.pbobjc.{h,m}",
+      "header_mappings_dir": "src",
+      "requires_arc": false,
+      "dependencies": {
+        "Protobuf": [
+
+        ]
+      }
+    },
+    {
+      "name": "Services",
+      "source_files": "src/*.pbrpc.{h,m}",
+      "header_mappings_dir": "src",
+      "requires_arc": true,
+      "dependencies": {
+        "gRPC-ProtoRPC": [
+
+        ],
+        "UserService/Messages": [
+
+        ]
+      }
+    }
+  ]
+}

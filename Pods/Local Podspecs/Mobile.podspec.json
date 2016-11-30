@@ -1,0 +1,20 @@
+{
+  "name": "Mobile",
+  "version": "0.7.0-30acd2d",
+  "summary": "Mobile framework pod of gomobile binding.",
+  "description": "Mobile framework pod of gomobile binding.",
+  "homepage": "https://inhouse.htcstudio.com/bitbucket/projects/CAREU/repos/deepq/",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": "HC340000 MobilePlatform",
+  "source": {
+    "git": "https://inhouse.htcstudio.com/bitbucket/scm/careu/deepq.git"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "vendored_frameworks": "Mobile.framework",
+  "prepare_command": "root=\"$(cd ../../../ && pwd)\"\nchanges=$(cd ${root} && git diff HEAD 30acd2d --name-only -- 'mobile/src/**/*.go')\nif [ ! -n \"${changes}\" ]; then\n  echo \"mobile sources has no changes\"\n  exit 0\nfi\necho \"renew gomobile binding\"\noutput=${root}/ios/medq/Mobile/Mobile.framework\nrm -rf ${output}\nmkdir -p ${output}\nGOPATH=${root}/mobile\ncd ${GOPATH} && ${GOPATH}/bin/gomobile bind -target=ios -o ${output} -v mobile"
+}
